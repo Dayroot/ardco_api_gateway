@@ -1,5 +1,5 @@
 
-const usersResolver = {
+const userResolver = {
     Query: {
         userDetailById: async(root, { userId }, { dataSources, userIdToken }) => {
             if( userId == userIdToken)
@@ -39,4 +39,4 @@ const usersResolver = {
     }
 };
 
-export default usersResolver;
+export default userResolver;

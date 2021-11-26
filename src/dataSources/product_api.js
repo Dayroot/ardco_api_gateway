@@ -26,7 +26,7 @@ class ProductAPI extends RESTDataSource {
     //Create a product
     async createProduct(data){
         data = new Object(JSON.parse(JSON.stringify(data)));
-        return await this.put(`/product/`, data);
+        return await this.post(`/product/`, data);
     }
 
     //update a product
@@ -40,6 +40,10 @@ class ProductAPI extends RESTDataSource {
         return await this.delete(`/product/${productId}`);
     }
 
+    //List all categories
+    async listCategories(){
+        return await this.get('/category/');
+    }
 
 }
 
