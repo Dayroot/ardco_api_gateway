@@ -45,7 +45,7 @@ const authTypeDefs = gql `
         address: String
     }
 
-    type response {
+    type Response {
         error: String
         result: String
     }
@@ -55,7 +55,7 @@ const authTypeDefs = gql `
         logIn(credentials: CredentialsInput!): Tokens!
         refreshToken(refresh: String!): Access!
         updateUser(userId: Int!, userUpdateInput: UserUpdateInput!): UserDetail
-        deleteUser(userId: Int!): response
+        deleteUser(userId: Int!): Response
     }
 
     type Query {
