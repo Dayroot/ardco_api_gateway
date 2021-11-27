@@ -49,6 +49,18 @@ class ProductAPI extends RESTDataSource {
         return await this.get('/category/');
     }
 
+    //Create a new category
+    async createCategory(data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.post('/category/', data)
+    }
+
+    //Update a category
+    async updateCategory(data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.patch('/category/', data)
+    }
+
 //==============SHOPPING CART==================================
 
     //Create a Shopping cart
