@@ -5,6 +5,7 @@ import resolvers from './resolvers/index.js';
 import authentication from './utils/authentication.js';
 import AuthAPI from './dataSources/auth_api.js';
 import ProductAPI from './dataSources/product_api.js';
+import PublicationAPI from './dataSources/publication_api.js';
 
 const server = new ApolloServer({
     context: authentication,
@@ -13,6 +14,7 @@ const server = new ApolloServer({
     dataSources: () => ({
         authAPI: new AuthAPI(),
         productAPI: new ProductAPI(),
+        publicationAPI: new PublicationAPI(),
 
     }),
     introspection: true,

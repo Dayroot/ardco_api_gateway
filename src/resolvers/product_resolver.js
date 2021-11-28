@@ -9,6 +9,9 @@ const productResolver = {
         productById: async(root, { productId }, { dataSources }) => {
             return (await dataSources.productAPI.productById(productId)).body[0];
         },
+        productsByUserId: async(root, { userId }, { dataSources }) => {
+            return (await dataSources.productAPI.productsByUserId(userId)).body;
+        },
     }
 
 }

@@ -24,8 +24,12 @@ class ProductAPI extends RESTDataSource {
     async productById(productId){
         return await this.get(`/product?_id=${productId}`);
     }
+    //List products by user id
+    async productsByUserId(userId){
+        return await this.get(`/product?userId=${userId}`);
+    }
 
-    //Create a product
+    //Create a new product
     async createProduct(data){
         data = new Object(JSON.parse(JSON.stringify(data)));
         return await this.post(`/product/`, data);
@@ -91,9 +95,37 @@ class ProductAPI extends RESTDataSource {
     async deleteShoppingCart(userId){
         return await this.delete(`/shopping-cart/${userId}`);
     }
-
     
+//=================Wish List==================================
 
+    //Get a wish list by user id
+    async wishListByUserId(userId){
+        return await this.get(`/wish-list?userId=${userId}`);
+    }
+
+    //Create a new Wish List
+    async createWishList(data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.post(`/wish-list/`, data);
+    }
+
+    //Delete a Wish List
+    async deleteWishList(userId){
+        return await this.delete(`/wish-list/${userId}`);
+    }
+
+    //Add a product to the wish list, or change the units of the product 
+    //added to the wish list. 
+    async updateWishListProduct(userId, data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.patch(`/wish-list?type=updateProduct&userId=${userId}`, data);
+    }
+
+    //Remove a product from the wish list
+    async deleteWishListProduct(userId, data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.patch(`/wish-list?type=deleteProduct&userId=${userId}`, data);
+    }
 
 }
 
