@@ -1,3 +1,5 @@
+import { ApolloError } from "apollo-server";
+
 const questionResolver = {
     Query: {
 

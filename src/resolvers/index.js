@@ -5,6 +5,7 @@ import shoppingCartResolver from './shoppingCart_resolver.js';
 import wishListResolver from './wishList_resolver.js';
 import publicationResolver from './publication_resolver.js';
 import questionResolver from './question_resolver.js';
+import reviewResolver from './review_resolver.js';
 
 import lodash from 'lodash';
 
@@ -16,6 +17,7 @@ const resolvers = lodash.merge(
     wishListResolver,
     publicationResolver,
     questionResolver,
+    reviewResolver,
 );
 
 export default resolvers;

@@ -4,7 +4,7 @@ const reviewTypeDefs = gql`
     
     type Review {
         _id: String!
-        publication: String!
+        publication: Publication!
         date: String!
         userId: Int!
         stars: Int!
@@ -12,7 +12,21 @@ const reviewTypeDefs = gql`
 
     }
 
+    input ReviewInput {
+        publication: String!
+        userId: Int!
+        stars: Int!
+        text: String
+    }
 
+    extend type Query {
+        reviewsByPublication( publicationId: String!): [Review]
+        reviewsByUserId( userId: Int!): [Review]
+    }
+
+    extend type Mutation {
+        createReview( reviewInput: ReviewInput! ): Review
+    }
 
 
 `;

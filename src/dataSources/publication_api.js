@@ -66,6 +66,28 @@ class PublicationAPI extends RESTDataSource {
         return await this.patch(`/question/`, data);
     }
 
+    //====================REVIEW==================================
+
+    //List reviews by publication
+    async reviewsByPublication(publicationId){
+        return await this.get(`/review?publication=${publicationId}`);
+    }
+
+    //List reviews by user id
+    async reviewsByUserId(userId){
+        return await this.get(`/review?userId=${userId}`);
+    }
+
+    //Create a question
+    async createReview(data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.post(`/review/`, data);
+    }
+
+    //Delete a review
+    async deleteReview(reviewId){
+        return await this.delete(`/review/${reviewId}`);
+    }
 }
 
 export default PublicationAPI;
