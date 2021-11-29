@@ -11,17 +11,17 @@ class PublicationAPI extends RESTDataSource {
 //====================PUBLICATION==================================
 
     //List all publications
-    async listAllPublications(){
+    async listPublications(){
         return await this.get('/publication');
     }
 
     //List publications by user id
-    async getPublicationsbyUserId(userId){
+    async publicationsbyUserId(userId){
         return await this.get(`/publication?userId=${userId}`);
     }
 
     //Get a publication by id
-    async getPublicationbyId(publicationId){
+    async publicationbyId(publicationId){
         return await this.get(`/publication?_id=${publicationId}`);
     }
 
@@ -52,6 +52,11 @@ class PublicationAPI extends RESTDataSource {
     //List questions by user id
     async questionsByUserId(userId){
         return await this.get(`/question?userId=${userId}`);
+    }
+
+    //Delete a question
+    async deleteQuestion(questionId){
+        return await this.delete(`/question/${questionId}`);
     }
 
     //Create a question

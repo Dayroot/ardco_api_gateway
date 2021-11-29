@@ -3,10 +3,12 @@ import { ApolloError } from "apollo-server";
 const publicationResolver = {
     
     Query: {
-        listAllPublications: async(root, {}, { dataSources }) => {
-            let publications = (await dataSources.publicationAPI.listAllPublications()).body;
+        listPublications: async(root, {}, { dataSources }) => {
+            //Get all publications and products
+            let publications = (await dataSources.publicationAPI.listPublications()).body;
             const products = (await dataSources.productAPI.listProducts()).body;
 
+            //Populate the product field of each publication
             publications = publications.map( pub => {
                 const prod = products.filter( product => product._id == pub.product );
                 pub.product = prod[0];
@@ -16,11 +18,12 @@ const publicationResolver = {
             return publications
         },
 
-        getPublicationsbyUserId: async(root, { userId }, { dataSources }) => {
-
-            let publications = (await dataSources.publicationAPI.getPublicationsbyUserId( userId )).body;
+        publicationsbyUserId: async(root, { userId }, { dataSources }) => {
+            //Get all publications and products
+            let publications = (await dataSources.publicationAPI.publicationsbyUserId( userId )).body;
             const products = (await dataSources.productAPI.productsByUserId( userId )).body;
 
+            //Populate the product field of each publication
             publications = publications.map( pub => {
                 const prod = products.filter( product => product._id == pub.product );
                 pub.product = prod[0];
@@ -30,10 +33,12 @@ const publicationResolver = {
             return publications
         },
 
-        getPublicationbyId: async(root, { publicationId }, { dataSources }) => {
-
-            const publication = (await dataSources.publicationAPI.getPublicationbyId( publicationId )).body[0];
+        publicationbyId: async(root, { publicationId }, { dataSources }) => {
+            //Get the publication and product
+            const publication = (await dataSources.publicationAPI.publicationbyId( publicationId )).body[0];
             const product = (await dataSources.productAPI.productById( publication.product )).body[0];
+            
+            //Populate the product field of the publication
             publication.product = product;
 
             return publication
@@ -57,19 +62,21 @@ const publicationResolver = {
                     //Create new publication
                     publicationInput.product = newProduct._id;
                     newPublication = (await dataSources.publicationAPI.createPublication( publicationInput )).body;
+                   
+                    //Populate the product field
                     newPublication.product = newProduct;
 
                     return newPublication
                 }
                 catch(error){
-
+                    //Rollback
                     if( newProduct )
                         await dataSources.productAPI.deleteProduct( newProduct._id )
 
                     if( newPublication )
                         await dataSources.publicationAPI.deletePublication( newPublication._id )
 
-                    throw new ApolloError(error)
+                    throw new ApolloError(error, 500)
                 }
             }
             else 
@@ -88,9 +95,9 @@ const publicationResolver = {
                 try{
                     const productId = updatePublicationInput.product._id;
             
-                    //Product and publication with current data before  updating
+                    //Product and publication with current data before updating
                     currentProduct = (await dataSources.productAPI.productById( productId )).body[0];
-                    currentpublication = (await dataSources.publicationAPI.getPublicationbyId( updatePublicationInput._id )).body[0];
+                    currentpublication = (await dataSources.publicationAPI.publicationbyId( updatePublicationInput._id )).body[0];
                     
                     //Product update
                     const productData = updatePublicationInput.product;
@@ -99,19 +106,21 @@ const publicationResolver = {
                     //Publication update
                     updatePublicationInput.product = productId;
                     updatedPublication = (await dataSources.publicationAPI.updatePublication( updatePublicationInput )).body;
+                    
+                    //Populate the product field
                     updatedPublication.product = updatedProduct;
 
                     return updatedPublication
                 }
                 catch(error){
-
+                    //Rollback
                     if( updatedProduct )
                         await dataSources.productAPI.updateProduct( currentProduct )
 
                     if( updatedPublication )
                         await dataSources.publicationAPI.updatePublication( currentpublication )
 
-                    throw new ApolloError(error)
+                    throw new ApolloError(error, 500)
                 }
             }
             else 

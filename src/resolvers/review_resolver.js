@@ -13,7 +13,7 @@ const reviewResolver = {
             const productData = (await dataSources.productAPI.productById( productId )).body[0];
             
             //Fill in the product field
-            reviews = reviews.map( review => {
+            reviews = await reviews.map( review => {
                review.publication.product = productData;
                return review
             });
@@ -33,17 +33,14 @@ const reviewResolver = {
                 const productData = (await dataSources.productAPI.productById( productId )).body[0];
                 
                 //Fill in the product field
-                reviews = reviews.map( review => {
+                reviews = await reviews.map( review => {
                     review.publication.product = productData;
                     return review
                 });
 
                 return reviews
-            }
-            
+            }      
         },
-
-
     },
 
     Mutation: {
@@ -66,7 +63,7 @@ const reviewResolver = {
                     return newReview
 
                 } catch (error) {
-
+                    //Rollback
                     if(newReview)
                         await dataSources.publicationAPI.deleteReview( newReview._id );
 

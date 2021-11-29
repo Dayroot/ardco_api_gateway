@@ -25,9 +25,9 @@ const publicationTypeDefs = gql`
     }
 
     extend type Query {
-        listAllPublications: [Publication]
-        getPublicationsbyUserId( userId: Int!): [Publication]
-        getPublicationbyId( publicationId: String!): Publication
+        listPublications: [Publication]
+        publicationsbyUserId( userId: Int!): [Publication]
+        publicationbyId( publicationId: String!): Publication
     }
 
     extend type Mutation {
