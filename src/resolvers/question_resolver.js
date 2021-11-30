@@ -31,7 +31,7 @@ const questionResolver = {
 
                 //Populate the product field of the publication
                 questions = await questions.map( async(ques) => {
-                    
+             
                     const productId = ques.publication.product;
                     const productData = ( await dataSources.productAPI.productById( productId )).body[0];
                     ques.publication.product = productData;
