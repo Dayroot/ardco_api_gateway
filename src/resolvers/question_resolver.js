@@ -71,7 +71,8 @@ const questionResolver = {
                     if( newQuestion )
                         await dataSources.publicationAPI.deleteQuestion( newQuestion._id );
                     
-                    throw new ApolloError(error, 500)
+                    console.log(`[ERROR] ${error}`);
+                    throw new ApolloError("Unexpected error", 500)
                 }
             }
             else
@@ -106,7 +107,8 @@ const questionResolver = {
                     if( questionWithAsnwer )
                         await dataSources.publicationAPI.answerQuestion( { ...answerInput, answer: null } );
 
-                    throw new ApolloError(error, 500)
+                    console.log(`[ERROR] ${error}`);
+                    throw new ApolloError("Unexpected error", 500)
                 }
             }
             else

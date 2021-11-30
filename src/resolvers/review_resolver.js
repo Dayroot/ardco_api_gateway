@@ -67,7 +67,8 @@ const reviewResolver = {
                     if(newReview)
                         await dataSources.publicationAPI.deleteReview( newReview._id );
 
-                    throw new ApolloError(error, 500)
+                    console.log(`[ERROR] ${error}`);
+                    throw new ApolloError("Unexpected error", 500)
                 }
             }
             else 

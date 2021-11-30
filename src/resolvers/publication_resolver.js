@@ -76,7 +76,8 @@ const publicationResolver = {
                     if( newPublication )
                         await dataSources.publicationAPI.deletePublication( newPublication._id )
 
-                    throw new ApolloError(error, 500)
+                    console.log(`[ERROR] ${error}`);
+                    throw new ApolloError("Unexpected error", 500)
                 }
             }
             else 
@@ -120,7 +121,8 @@ const publicationResolver = {
                     if( updatedPublication )
                         await dataSources.publicationAPI.updatePublication( currentpublication )
 
-                    throw new ApolloError(error, 500)
+                    console.log(`[ERROR] ${error}`);
+                    throw new ApolloError("Unexpected error", 500)
                 }
             }
             else 
