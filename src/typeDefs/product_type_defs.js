@@ -6,11 +6,6 @@ const productTypeDefs = gql`
         deletedCount: Int!
     }
 
-    type Category {
-        _id: String
-        name: String
-    }
-
     type Product {
         _id: String!
         name: String!
