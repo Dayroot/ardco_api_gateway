@@ -43,6 +43,17 @@ const publicationResolver = {
 
             return publication
         },
+
+        publicationbyProductId: async(root, { productId }, { dataSources }) => {
+            //Get the publication and product
+            const publication = (await dataSources.publicationAPI.publicationbyProductId( productId )).body[0];
+            const product = (await dataSources.productAPI.productById( publication.product )).body[0];
+            
+            //Populate the product field of the publication
+            publication.product = product;
+
+            return publication
+        },
     },
 
     Mutation: {

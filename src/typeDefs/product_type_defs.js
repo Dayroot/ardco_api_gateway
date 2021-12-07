@@ -31,6 +31,7 @@ const productTypeDefs = gql`
         total_reviews: Int
         userId: Int!
         features: Features
+        discount: Float
     }
     input ProductInput {
         name: String!
@@ -43,6 +44,7 @@ const productTypeDefs = gql`
         total_reviews: Int
         userId: Int!
         features: FeaturesInput!
+        discount: Float
     }
 
     input ProductUpdateInput {
@@ -57,6 +59,7 @@ const productTypeDefs = gql`
         total_reviews: Int
         userId: Int
         features: FeaturesInput
+        discount: Float
     }
     extend type Query {
         listProducts: [Product]

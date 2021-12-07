@@ -25,6 +25,11 @@ class PublicationAPI extends RESTDataSource {
         return await this.get(`/publication?_id=${publicationId}`);
     }
 
+    //Get a publication by product id
+    async publicationbyProductId(productId){
+        return await this.get(`/publication?product=${productId}`);
+    }
+
     //Create a new publication
     async createPublication(data){
         data = new Object(JSON.parse(JSON.stringify(data)));
