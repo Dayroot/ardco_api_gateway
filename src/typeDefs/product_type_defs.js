@@ -6,6 +6,21 @@ const productTypeDefs = gql`
         deletedCount: Int!
     }
 
+    type Features {
+        _id: String
+        color: String
+        material: String
+        craftType: String
+        department: String
+    }
+
+    input FeaturesInput {
+        color: String
+        material: String
+        craftType: String
+        department: String
+    }
+
     type Product {
         _id: String!
         name: String!
@@ -17,6 +32,7 @@ const productTypeDefs = gql`
         average_reviews: Float
         total_reviews: Int
         userId: Int!
+        features: Features
     }
     input ProductInput {
         name: String!
@@ -28,6 +44,7 @@ const productTypeDefs = gql`
         average_reviews: Float
         total_reviews: Int
         userId: Int!
+        features: FeaturesInput!
     }
 
     input ProductUpdateInput {
@@ -41,6 +58,7 @@ const productTypeDefs = gql`
         average_reviews: Float
         total_reviews: Int
         userId: Int
+        features: FeaturesInput
     }
     extend type Query {
         listProducts: [Product]
