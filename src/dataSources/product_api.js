@@ -38,12 +38,18 @@ class ProductAPI extends RESTDataSource {
     //update a product
     async updateProduct(data){
         data = new Object(JSON.parse(JSON.stringify(data)));
-        return await this.patch(`/product/`, data);
+        return await this.patch(`/product?type=normal-update`, data);
     }
 
     //Detele a product
     async deleteProduct(productId){
         return await this.delete(`/product/${productId}`);
+    }
+
+    //Update reviews of the product
+    async updateReviewsProduct(data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.patch(`/product?type=update-review`, data);
     }
 
 //==============CATEGORY==================================

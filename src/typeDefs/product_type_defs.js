@@ -10,14 +10,12 @@ const productTypeDefs = gql`
         _id: String
         color: String
         material: String
-        craftType: String
         department: String
     }
 
     input FeaturesInput {
         color: String
         material: String
-        craftType: String
         department: String
     }
 

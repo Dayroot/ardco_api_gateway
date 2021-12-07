@@ -48,15 +48,21 @@ const reviewResolver = {
         createReview: async(root, { reviewInput }, { dataSources, userIdToken }) => {
             
             let newReview;
+            let currentProductData;
+            let productData;
+
             if( reviewInput.userId == userIdToken ){
                 try {
                     //Create a new review
                     newReview = (await dataSources.publicationAPI.createReview( reviewInput )).body;
 
-                    //Get the data of the reviewed product
+                    //Get the current data of the reviewed product
                     const productId = newReview.publication.product;
-                    const productData = (await dataSources.productAPI.productById( productId )).body[0]; 
+                    currentProductData = (await dataSources.productAPI.productById( productId )).body[0]; 
 
+                    //Update the review field in the product
+                    productData = (await dataSources.productAPI.updateReviewsProduct( {_id: productId, review: reviewInput.stars} )).body;
+                    
                     //Fill in the product field
                     newReview.publication.product = productData;
 
@@ -66,6 +72,9 @@ const reviewResolver = {
                     //Rollback
                     if(newReview)
                         await dataSources.publicationAPI.deleteReview( newReview._id );
+
+                    if(productData)
+                        await dataSources.productAPI.updateProduct( currentProductData );
 
                     console.log(`[ERROR] ${error}`);
                     throw new ApolloError("Unexpected error", 500)
