@@ -1,16 +1,17 @@
 import { gql } from 'apollo-server';
 
 const categoryTypeDefs = gql`
-    
 
     type Category {
         _id: String!
         name: String!
+        img: String!
     }
 
     input CategoryInput {
         _id: String
         name: String!
+        img: String
     }
 
     extend type Query {

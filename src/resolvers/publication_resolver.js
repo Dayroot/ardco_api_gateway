@@ -98,13 +98,15 @@ const publicationResolver = {
         updatePublication: async(root, { updatePublicationInput }, { dataSources, userIdToken }) => {
             
             if(updatePublicationInput.userId == userIdToken){
-
+                
                 let currentProduct = null;
                 let currentpublication = null;
                 let updatedProduct = null;
                 let updatedPublication = null;
 
                 try{
+                    updatePublicationInput.product.category = updatePublicationInput.product.category._id;
+
                     const productId = updatePublicationInput.product._id;
             
                     //Product and publication with current data before updating

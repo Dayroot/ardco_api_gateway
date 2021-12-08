@@ -29,6 +29,8 @@ const shoppingCartTypeDefs = gql`
     extend type Mutation {
         createShoppingCart(userId: Int! ): ShoppingCart!
         updateCartProduct(userId: Int!, cartProductInput: CartProductInput): ShoppingCart!
+        resetShoppingCart(userId: Int!): ShoppingCart!
+        massiveUpdateCart(userId: Int!, cartProductsInput: [CartProductInput]): ShoppingCart!
         deleteCartProduct(userId: Int!, cartProductInput: CartProductInput): ShoppingCart!
         deleteShoppingCart(userId: Int!): ResponseDelete!
     }

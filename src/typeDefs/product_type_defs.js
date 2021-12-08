@@ -53,7 +53,7 @@ const productTypeDefs = gql`
         price: Int
         stock: Int
         sold: Int
-        category: String
+        category: CategoryInput
         imgUrls: [String]
         average_reviews: Float
         total_reviews: Int

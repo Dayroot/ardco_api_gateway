@@ -90,11 +90,20 @@ class ProductAPI extends RESTDataSource {
         data = new Object(JSON.parse(JSON.stringify(data)));
         return await this.patch(`/shopping-cart?type=updateProduct&userId=${userId}`, data);
     }
+    //Reset shopping cart
+    async resetShoppingCart(userId){
+        return await this.patch(`/shopping-cart?type=resetShoppingCart&userId=${userId}`);
+    }
 
     //Remove a product from the cart
     async deleteCartProduct(userId, data){
         data = new Object(JSON.parse(JSON.stringify(data)));
         return await this.patch(`/shopping-cart?type=deleteProduct&userId=${userId}`, data);
+    }
+    //Massive update products cart
+    async massiveUpdateCart(userId, data){
+        data = new Object(JSON.parse(JSON.stringify(data)));
+        return await this.patch(`/shopping-cart?type=masiveUpdateCartProducts&userId=${userId}`, data);
     }
 
     //Delete a Shopping cart

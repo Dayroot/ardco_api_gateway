@@ -54,6 +54,9 @@ const purchaseResolver = {
                         return purchasedProd
                     });
 
+                    //Reset shoppingCart
+                    await dataSources.productAPI.resetShoppingCart(purchaseInput.userId);
+
                     return newPurchase
 
                 } catch (error) {
